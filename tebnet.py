@@ -4,11 +4,8 @@ from torchvision import models
 
 
 def modify_resnet_stride(model):
-    # 获取layer4的第一个残差块
     layer4 = model.layer4[0]
-    # 修改第一个卷积层的步长
     layer4.conv1.stride = (1, 1)
-    # 通常还需要调整下采样（如果有的话）
     if layer4.downsample is not None:
         layer4.downsample[0].stride = (1, 1)
 
@@ -29,7 +26,7 @@ class TBE_Net(nn.Module):
             nn.BatchNorm2d(256),
             nn.ReLU(),
             nn.Flatten(),
-            nn.linear(256, 10)              
+            nn.linear(256, 10)
             )
 
 
